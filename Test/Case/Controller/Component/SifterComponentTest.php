@@ -184,7 +184,7 @@ class SifterComponentTest extends ControllerTestCase {
 		return array(
 			'device 1' => array(
 				array(
-					'url' => '/test_devices/index.json',
+					'url' => '/test_devices/index/foo.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -209,7 +209,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			'device 2' => array(
 				array(
-					'url' => '/test_devices/index.json',
+					'url' => '/test_devices/index/foo.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -234,7 +234,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			'no results' => array(
 				array(
-					'url' => '/test_devices/index.json',
+					'url' => '/test_devices/index/foo.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -257,7 +257,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			'multi' => array(
 				array(
-					'url' => '/test_devices/index.json',
+					'url' => '/test_devices/index/foo.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -283,7 +283,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			// 'not valid field' => array(
 			// 	array(
-			//		'url' => '/test_devices/index.json',
+			//		'url' => '/test_devices/index/foo.json',
 			// 		'pass' => array(
 			// 			'data' => array(
 			// 				'Sifter' => array(
