@@ -4,6 +4,7 @@ App::uses('TestMedia', 'Sifter.Test/TestApp/Model');
 App::uses('TestDeviceType', 'Sifter.Test/TestApp/Model');
 
 class TestDevice extends Model {
+
 	public $useTable = 'devices';
 
 	public $useDbConfig = 'test';

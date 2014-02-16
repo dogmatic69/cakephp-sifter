@@ -245,7 +245,7 @@ class SifterBehavior extends ModelBehavior {
 
 		if (array_key_exists($method, $Model->findMethods) && $Model->findMethods[$method] === true) {
 			$methodType = 'customFind';
-		} else if ($Model->hasMethod($method)) {
+		} elseif ($Model->hasMethod($method)) {
 			$methodType = 'method';
 		} else {
 			$method = 'list';

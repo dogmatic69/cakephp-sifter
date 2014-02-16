@@ -11,7 +11,7 @@ class SifterComponent extends Component {
 
 		if (empty($Controller->request->data['Sifter'])) {
 			if (empty($Controller->request->params['named'])) {
-				return true;	
+				return true;
 			}
 
 			return self::_sift($Controller);
@@ -28,7 +28,7 @@ class SifterComponent extends Component {
 			return self::_setAutoComplete($Controller, array(
 				$Controller->request->data['Sifter']['search_field'] => $field[$Controller->request->data['Sifter']['search_field']]
 			));
-		} else if ($Controller->request->is('post')) {
+		} elseif ($Controller->request->is('post')) {
 			unset($Controller->request->data['Sifter']);
 			return $Controller->redirect(Hash::filter($Controller->request->data));
 		}
@@ -176,7 +176,7 @@ class SifterComponent extends Component {
 		$fields = array_filter((array)$Model->sifterConfig('fields'));
 		foreach ($fields as $field => $config) {
 			$var = $this->_fetchData($Controller, $config);
-			
+
 			if ($var) {
 				$Controller->set($config['viewVariable'], $var);
 			}
@@ -223,7 +223,6 @@ class SifterComponent extends Component {
 			return;
 		}
 
-
 		return self::_autocompleteSearch($Controller, array(
 			'modelName' => $fieldConfig['input']['options']['className'],
 			'methodType' => $fieldConfig['input']['options']['methodType'],
@@ -240,7 +239,7 @@ class SifterComponent extends Component {
 			'pass' => null,
 		), $options);
 
-		$Model = self::_Model($Controller, $options['modelName']);
+		$Model = self::_model($Controller, $options['modelName']);
 		switch ($options['methodType']) {
 			case 'customFind':
 				if ($options['pass']) {
@@ -262,7 +261,7 @@ class SifterComponent extends Component {
 		throw new InvalidArgumentException('Unable to fetch data');
 	}
 
-	protected function _Model(Controller $Controller, $modelName) {
+	protected function _model(Controller $Controller, $modelName) {
 		if ($modelName instanceof Model) {
 			return $modelName;
 		}

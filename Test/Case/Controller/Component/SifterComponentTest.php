@@ -10,6 +10,7 @@ class_exists('TestDevice');
 class_exists('TestDeviceType');
 
 class TestMediaController extends Controller {
+
 	public $uses = array('TestMedia');
 
 	public $components = array('Sifter.Sifter', 'Paginator');
@@ -22,6 +23,7 @@ class TestMediaController extends Controller {
 }
 
 class TestDevicesController extends Controller {
+
 	public $uses = array('TestDevice');
 
 	public $components = array('Sifter.Sifter', 'Paginator');
@@ -37,7 +39,6 @@ class TestDevicesController extends Controller {
 	}
 
 	public function add() {
-
 	}
 }
 

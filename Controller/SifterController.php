@@ -1,5 +1,14 @@
 <?php
+/**
+ * Sifter Controller
+ */
 class SifterController extends SifterAppController {
+
+/**
+ * Dont laod a model
+ *
+ * @var boolean
+ */
 	public $uses = false;
 
 /**
@@ -18,6 +27,5 @@ class SifterController extends SifterAppController {
 	}
 
 	public function admin_sift() {
-
 	}
 }

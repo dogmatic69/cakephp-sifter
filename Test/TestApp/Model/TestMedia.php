@@ -4,6 +4,7 @@ App::uses('TestDevice', 'Sifter.Test/TestApp/Model');
 App::uses('TestDeviceType', 'Sifter.Test/TestApp/Model');
 
 class TestMedia extends Model {
+
 	public $useTable = 'media';
 
 	public $useDbConfig = 'test';
@@ -21,13 +22,13 @@ class TestMedia extends Model {
 		'active',
 		'latitude',
 	);
+
 	public $actsAs = array(
 		'Sifter.Sifter'
 	);
 
 	protected function _findCustom($state, $query, $results = array()) {
 		if ($state == 'before') {
-
 			return $query;
 		}
 
@@ -36,7 +37,6 @@ class TestMedia extends Model {
 
 	protected function _findCustomMerge($state, $query, $results = array()) {
 		if ($state == 'before') {
-
 			$query['conditions'] = Hash::merge($query['conditions'], array(
 				'TestMedia.device_id' => 'device-1',
 			));
@@ -49,7 +49,6 @@ class TestMedia extends Model {
 
 	protected function _findCustomAjax($state, $query, $results = array()) {
 		if ($state == 'before') {
-
 			return $query;
 		}
 
