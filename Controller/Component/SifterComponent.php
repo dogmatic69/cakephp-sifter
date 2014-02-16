@@ -5,10 +5,16 @@ class SifterComponent extends Component {
 
 	public function initialize(Controller $Controller) {
 		parent::initialize($Controller);
-		$dealWithRequest = $Controller->request->is('post') && !empty($Controller->request->data['Sifter']) && self::_isSiftable($Controller);
+		if (!self::_isSiftable($Controller)) {
+			return false;
+		}
 
-		if (!$dealWithRequest) {
-			return true;
+		if (empty($Controller->request->data['Sifter'])) {
+			if (empty($Controller->request->params['named'])) {
+				return true;	
+			}
+
+			return self::_sift($Controller);
 		}
 
 		$Model = $Controller->{$Controller->modelClass};
@@ -22,13 +28,92 @@ class SifterComponent extends Component {
 			return self::_setAutoComplete($Controller, array(
 				$Controller->request->data['Sifter']['search_field'] => $field[$Controller->request->data['Sifter']['search_field']]
 			));
+		} else if ($Controller->request->is('post')) {
+			unset($Controller->request->data['Sifter']);
+			return $Controller->redirect(Hash::filter($Controller->request->data));
 		}
-
-		return self::_prg($Controller, $field);
 	}
 
-	protected function _prg(Controller $Controller, $fields) {
-		
+	protected function _sift(Controller $Controller) {
+		if (empty($Controller->Paginator) || !$Controller->Paginator instanceof PaginatorComponent) {
+			return false;
+		}
+
+		$filterFields = self::sift($Controller);
+		if (empty($filterFields)) {
+			return false;
+		}
+
+		$config = $Controller->{$Controller->modelClass}->sifterConfig('sifter');
+
+		$contains = array();
+		foreach ($filterFields as $field => $condition) {
+			list($containModel) = pluginSplit($field);
+			if ($containModel != $Controller->modelClass) {
+				$contains[] = $containModel;
+			}
+		}
+
+		$Controller->request->data = Hash::merge($Controller->request->params['named'], $Controller->request->data);
+
+		return $Controller->Paginator->settings = array(
+			'all',
+			'conditions' => $filterFields,
+			'contain' => array_unique(array_filter($contains)),
+		);
+	}
+
+/**
+ * Get conditions array based on the params passed in the GET request
+ *
+ * Searches through the data looking for fields that are configured in the model to be used for searching.
+ *
+ * @param Controller $Controller the controller instance
+ *
+ * @return array
+ */
+	public function sift(Controller $Controller) {
+		$fields = array_filter((array)$Controller->{$Controller->modelClass}->sifterConfig('fields'));
+		$filterFields = array();
+		foreach ($fields as $field => $config) {
+			list($modelName, $fieldName) = pluginSplit($field);
+			if (!empty($Controller->request->params['named'][$modelName][$fieldName . '_start']) && !empty($Controller->request->params['named'][$modelName][$fieldName . '_end'])) {
+				$filterFields[$field . ' BETWEEN ? AND ?'] = array(
+					$Controller->request->params['named'][$modelName][$fieldName . '_start'] . '00:00:00',
+					$Controller->request->params['named'][$modelName][$fieldName . '_end'] . '23:59:59',
+				);
+				continue;
+			}
+
+			if (empty($Controller->request->params['named'][$modelName][$fieldName])) {
+				continue;
+			}
+
+			switch (strtoupper($config['operator'])) {
+				case 'IN':
+				case '=':
+					$filterFields[$field] = $Controller->request->params['named'][$modelName][$fieldName];
+					break;
+
+				case '!=':
+				case '>=':
+				case '<=':
+					$filterFields[$field . ' ' . $config['operator']] = $Controller->request->params['named'][$modelName][$fieldName];
+					break;
+
+				case 'NOT LIKE':
+				case 'LIKE':
+					$filterFields[] = sprintf('%s %s "%%%s%%"', $field, strtoupper($config['operator']), $Controller->request->params['named'][$modelName][$fieldName]);
+					break;
+
+				default:
+					pr($config);
+					exit;
+					break;
+			}
+		}
+
+		return $filterFields;
 	}
 
 	protected function _setAutoComplete(Controller $Controller, array $field) {
@@ -77,14 +162,15 @@ class SifterComponent extends Component {
  * @return boolean
  */
 	public function beforeRender(Controller $Controller) {
+		$Controller->helpers[] = 'Sifter.Sifter';
 		if (!self::_isSiftable($Controller)) {
+			$Controller->set('notSiftable', true);
 			return true;
 		}
 		if (self::_isAjax($Controller)) {
 			$Controller->viewClass = 'Json';
 			$Controller->layout = 'ajax';
 		}
-		$Controller->helpers[] = 'Sifter.Sifter';
 
 		$Model = $Controller->{$Controller->modelClass};
 		$fields = array_filter((array)$Model->sifterConfig('fields'));
@@ -104,7 +190,9 @@ class SifterComponent extends Component {
 			return false;
 		}
 
-		if (!in_array('Sifter', $Controller->{$Controller->modelClass}->Behaviors->attached())) {
+		$Model = $Controller->{$Controller->modelClass};
+		$config = $Model->sifterConfig('sifter');
+		if (!in_array('Sifter', $Model->Behaviors->attached()) || !in_array($Controller->request->params['action'], $config['allowedMethods'])) {
 			return false;
 		}
 
