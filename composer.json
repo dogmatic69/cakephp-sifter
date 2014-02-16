@@ -1,0 +1,27 @@
+{
+  "name": "dogmatic69/cakephp-sifter",
+  "version": "0.0.1",
+  "description": "CakePHP plugin for filtering and searching model data",
+  "type": "cakephp-plugin",
+  "keywords": [
+    "cakephp"
+  ],
+  "homepage": "http://github.com/dogmatic69/cakephp-sifter",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Carl Sutton (dogmatic69)",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "composer/installers": "*"
+  },
+  "support": {
+    "issues": "https://github.com/dogmatic69/cakephp-sifter/issues",
+    "source": "https://github.com/dogmatic69/cakephp-sifter"
+  },
+  "extra": {
+    "installer-name": "CakePHP Sifter"
+  }
+}
