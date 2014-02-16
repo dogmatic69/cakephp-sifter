@@ -88,9 +88,11 @@ class MyController extends AppController {
 
 Finally you need to have a form so that users will be able to input the serch requirements. There is an included element which will build a generic search form based on the inputs that have been configured. Alternativly you could use the form helper to build your own.
 
-	echo $this->element('Sifter.sifter');
+	echo $this->element('Sifter.sift');
 
 That is it, now when you visit the page you should see a search form. Submitting data on in the form will do a PRG to to a URL containing all your params. If you are using pagination these will be included already in the `PaginatorComponent::$settings` property. If you are using a normal find on the page you can use the `SifterComponent::sift()` method to fetch the query conditions.
+
+In a controller method:
 
 	$conditions = $this->Sifter->sift($this);
 	pr($conditions);
@@ -106,3 +108,7 @@ That is it, now when you visit the page you should see a search form. Submitting
 			'MyOtherModel',
 		)
 	)
+
+## Contribute
+
+Submit bugs / patches on github.com/dogmatic69/cakephp-sifter
