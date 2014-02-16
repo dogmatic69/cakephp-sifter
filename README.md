@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/dogmatic69/cakephp-sifter.png?branch=master)](https://travis-ci.org/dogmatic69/cakephp-sifter)
+[![Coverage Status](https://coveralls.io/repos/dogmatic69/cakephp-sifter/badge.png)](https://coveralls.io/r/dogmatic69/cakephp-sifter)
 
 ## Sifter
 
