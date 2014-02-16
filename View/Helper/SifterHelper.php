@@ -76,6 +76,8 @@ class SifterHelper extends AppHelper {
  * @param string $model the name of the model (optional, blank for autodetect)
  *
  * @return string
+ *
+ * @throws CakeException when model cant be found
  */
 	protected function _defaultModel($model = null) {
 		if (!empty($model)) {
@@ -88,7 +90,8 @@ class SifterHelper extends AppHelper {
 		}
 
 		if (empty($model)) {
-			pr($this);
+			pr($this->request->params);
+			throw new CakeException('Cant find model to use');
 		}
 		$this->defaultModel = $model;
 		return $model;
