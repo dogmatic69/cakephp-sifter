@@ -30,6 +30,7 @@ matrix:
 before_script:
   - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
+  - echo "CakePlugin::loadAll(array('Sifter' => array('routes' => true, 'bootstrap' => true)));" >> Config/bootstrap.php
 
 script:
   - ../travis/script.sh
