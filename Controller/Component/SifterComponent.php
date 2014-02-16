@@ -71,6 +71,8 @@ class SifterComponent extends Component {
  * @param Controller $Controller the controller instance
  *
  * @return array
+ *
+ * @throws CakeException when unknown operator is used
  */
 	public function sift(Controller $Controller) {
 		$fields = array_filter((array)$Controller->{$Controller->modelClass}->sifterConfig('fields'));
@@ -107,8 +109,7 @@ class SifterComponent extends Component {
 					break;
 
 				default:
-					pr($config);
-					exit;
+					throw new CakeException('Not sure what to do yet');
 					break;
 			}
 		}
