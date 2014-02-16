@@ -110,7 +110,6 @@ class SifterComponent extends Component {
 
 				default:
 					throw new CakeException('Not sure what to do yet');
-					break;
 			}
 		}
 

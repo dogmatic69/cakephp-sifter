@@ -38,8 +38,8 @@ class SifterHelperTest extends CakeTestCase {
 		$Dispatch->parseParams(new CakeEvent('ControllerTestCase', $Dispatch, array('request' => $Request)));
 		$Dispatch->dispatch($Request, $Dispatch->response, array('return' => true));
 		$Controller = new TestDevicesController($Request);
-    	$View = new View($Controller);
-    	$View ->request['models'] = array(
+		$View = new View($Controller);
+		$View ->request['models'] = array(
 			'TestDevice' => array('plugin' => null, 'className' => 'TestDevice')
 		);
 		$this->Sifter = new SifterHelper($View);
