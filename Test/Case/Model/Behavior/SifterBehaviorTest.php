@@ -178,7 +178,7 @@ class SifterBehaviorTest extends CakeTestCase {
 				array(
 					'sifter' => array(
 						'allowedMethods' => array(
-							'admin_index', 'foo', 'bar', 'admin_baz',
+							'admin_index', 'foo', 'bar', 'admin_baz', 'index',
 						),
 						'requiresPost' => false,
 						'plugin' => null,

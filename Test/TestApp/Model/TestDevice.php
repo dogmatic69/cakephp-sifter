@@ -33,7 +33,7 @@ class TestDevice extends Model {
 				'created',
 			),
 			'allowedMethods' => array(
-				'foo', 'bar', 'admin_baz',
+				'foo', 'bar', 'admin_baz', 'index',
 			),
 		),
 	);
