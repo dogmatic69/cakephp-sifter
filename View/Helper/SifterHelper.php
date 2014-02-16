@@ -6,6 +6,7 @@ class SifterHelper extends AppHelper {
 	public $helpers = array(
 		'Html',
 	);
+
 /**
  * Get the default model name
  *
@@ -15,7 +16,7 @@ class SifterHelper extends AppHelper {
 
 	public function beforeLayout($layoutFile) {
 		parent::beforeLayout($layoutFile);
-		
+
 		$this->Html->script('Sifter.sifter', array(
 			'inline' => false,
 		));
@@ -40,7 +41,7 @@ class SifterHelper extends AppHelper {
 	public function getModel() {
 		return $this->defaultModel;
 	}
-	
+
 /**
  * Get the form fields
  *
@@ -49,7 +50,7 @@ class SifterHelper extends AppHelper {
  * @return array
  */
 	public function getFields($model = null) {
-		$fields = Hash::extract(self::_Model($model)->sifterConfig('fields'), '{s}.input');
+		$fields = Hash::extract(self::_model($model)->sifterConfig('fields'), '{s}.input');
 		foreach ($fields as &$config) {
 			if (isset($config['options']['className'])) {
 				unset($config['options']);
@@ -65,7 +66,7 @@ class SifterHelper extends AppHelper {
  *
  * @return Model
  */
-	protected function _Model($model) {
+	protected function _model($model) {
 		return ClassRegistry::init($model ? $model : $this->defaultModel);
 	}
 

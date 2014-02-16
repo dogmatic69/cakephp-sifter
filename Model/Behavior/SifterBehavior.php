@@ -15,7 +15,7 @@ class SifterBehavior extends ModelBehavior {
  * @var array
  */
 	public $mapMethods = array(
-		'/\b_findSifterDateTimeRange\b/' => '_findSifterDateTimeRange',
+		'/\b_findSifterDateTimeRange\b/' => 'findSifterDateTimeRange',
 	);
 
 /**
@@ -61,7 +61,7 @@ class SifterBehavior extends ModelBehavior {
 		return true;
 	}
 
-	public function _findSifterDateTimeRange(Model $Model, $method, $state, $query, $results = array()) {
+	public function findSifterDateTimeRange(Model $Model, $method, $state, $query, $results = array()) {
 		if ($state == 'before') {
 
 			return $query;
@@ -118,11 +118,10 @@ class SifterBehavior extends ModelBehavior {
 				$config['parentModel'] = implode('.', array_filter(array($Model->plugin, $Model->alias)));
 
 				if (isset($Model->$alias) && $Model->alias instanceof Model) {
-					$formatted[$arrayKey] = $this->_fieldConfig($Model, $field, $config);	
+					$formatted[$arrayKey] = $this->_fieldConfig($Model, $field, $config);
 				} else {
 					$formatted[$arrayKey] = $this->_fieldConfig(ClassRegistry::init($alias), $field, $config);
 				}
-				
 			} else {
 				$formatted[$arrayKey] = $this->_fieldConfig($Model, $field, $config);
 			}
@@ -191,7 +190,7 @@ class SifterBehavior extends ModelBehavior {
 		if (self::_isForeignKeyField($field)) {
 			$schema['type'] = 'foreignKey';
 		}
-		
+
 		switch ($schema['type']) {
 			case 'text':
 			case 'string':
@@ -268,6 +267,16 @@ class SifterBehavior extends ModelBehavior {
 		);
 	}
 
+/**
+ * Get related model name
+ *
+ * @param Model $Model the model to check
+ * @param string $field the field name (fk)
+ *
+ * @return null|string
+ *
+ * @throws InvalidArgumentException when relation can not be found
+ */
 	protected function _relatedModelName(Model $Model, $field) {
 		if (empty($Model->belongsTo)) {
 			return null;
@@ -368,7 +377,8 @@ class SifterBehavior extends ModelBehavior {
 	protected function _friendlyName($field) {
 		if (self::_isForeignKeyField($field)) {
 			$field = self::_stripId($field);
-		} 
+		}
+
 		return Inflector::humanize($field);
 	}
 
@@ -382,7 +392,6 @@ class SifterBehavior extends ModelBehavior {
 	protected function _isForeignKeyField($field) {
 		return substr($field, -3) == '_id';
 	}
-
 
 /**
  * remove the _id part from a field name
