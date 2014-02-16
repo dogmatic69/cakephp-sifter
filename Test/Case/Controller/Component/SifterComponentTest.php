@@ -11,6 +11,8 @@ class_exists('TestMedia');
 class_exists('TestDevice');
 class_exists('TestDeviceType');
 
+Router::parseExtensions('json');
+
 /**
  * SifterComponent Test Case
  *
