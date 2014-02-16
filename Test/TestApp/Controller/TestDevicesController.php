@@ -13,6 +13,10 @@ class TestDevicesController extends Controller {
 		return $this->redirecTest = compact('url', 'status', 'exit');
 	}
 
+	public function render($action = null, $layout = null, $file = null) {
+        $this->renderedAction = $action;
+    }
+
 	public function index() {
 		$this->set('devices', $this->Paginator->paginate());
 	}
