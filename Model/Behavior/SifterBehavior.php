@@ -40,6 +40,11 @@ class SifterBehavior extends ModelBehavior {
  * @return void
  */
 	public function setup(Model $Model, $config = array()) {
+		$config = array_merge(array('fields' => array()), $config);
+		$Model->sifter = !empty($Model->sifter) ? $Model->sifter : array();
+		$Model->sifter = Hash::merge($config['fields'], $Model->sifter);
+		unset($config['fields']);
+
 		$this->settings[$Model->alias] = Hash::merge(array('sifter' => $this->_defaults), array(
 			'sifter' => array(
 				'plugin' => $Model->plugin,
@@ -110,7 +115,7 @@ class SifterBehavior extends ModelBehavior {
 			$arrayKey = implode('.', array($alias, $field));
 			if ($Model->alias != $alias) {
 				$config['ownModel'] = false;
-				$config['parentModel'] = implode('.', array($Model->plugin, $Model->alias));
+				$config['parentModel'] = implode('.', array_filter(array($Model->plugin, $Model->alias)));
 
 				if (isset($Model->$alias) && $Model->alias instanceof Model) {
 					$formatted[$arrayKey] = $this->_fieldConfig($Model, $field, $config);	
@@ -150,20 +155,22 @@ class SifterBehavior extends ModelBehavior {
 		}
 
 		$friendlyName = $this->_friendlyName($field);
-		$friendlyField = __d(Inflector::underscore($Model->plugin), $friendlyName);
+		$friendlyField = __d(Inflector::underscore($Model->plugin) ?: 'sifter', $friendlyName);
 
 		if ($config['ownModel']) {
 			$placeholder = __d('sifter', 'Search by %s', $friendlyField);
 			$label = $friendlyName;
 		} else {
 			$alias = $this->_friendlyName($Model->alias);
-			$placeholder = __d('sifter', 'Search by %s %s', __d(Inflector::underscore($Model->plugin), $alias), $friendlyField);
+			$placeholder = __d('sifter', 'Search by %s %s', __d(Inflector::underscore($Model->plugin) ?: 'sifter', $alias), $friendlyField);
 			$label = sprintf('%s %s', $alias, $friendlyName);
 		}
 		$config = Hash::merge($this->_inputConfig($Model, $field), array(
-			'label' => $label,
-			'placeholder' => $placeholder,
-			'required' => false,
+			'input' => array(
+				'label' => $label,
+				'placeholder' => $placeholder,
+				'required' => false,
+			)
 		), $config);
 
 		return $config;
