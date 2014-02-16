@@ -4,43 +4,12 @@ App::uses('Controller', 'Controller');
 App::uses('Component', 'Controller');
 App::uses('SifterComponent', 'Sifter.Controller/Component');
 App::uses('TestMedia', 'Sifter.Test/TestApp/Model');
+App::uses('TestMediaController', 'Sifter.Test/TestApp/Controller');
+App::uses('TestDevicesController', 'Sifter.Test/TestApp/Controller');
 
 class_exists('TestMedia');
 class_exists('TestDevice');
 class_exists('TestDeviceType');
-
-class TestMediaController extends Controller {
-
-	public $uses = array('TestMedia');
-
-	public $components = array('Sifter.Sifter', 'Paginator');
-
-	public $redirecTest = null;
-
-	public function redirect($url, $status = null, $exit = true) {
-		return $this->redirecTest = compact('url', 'status', 'exit');
-	}
-}
-
-class TestDevicesController extends Controller {
-
-	public $uses = array('TestDevice');
-
-	public $components = array('Sifter.Sifter', 'Paginator');
-
-	public $redirecTest = null;
-
-	public function redirect($url, $status = null, $exit = true) {
-		return $this->redirecTest = compact('url', 'status', 'exit');
-	}
-
-	public function index() {
-		$this->set('devices', $this->Paginator->paginate());
-	}
-
-	public function add() {
-	}
-}
 
 /**
  * SifterComponent Test Case
