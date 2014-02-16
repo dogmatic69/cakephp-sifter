@@ -1,4 +1,12 @@
 <?php
+if (isset($notSiftable) && $notSiftable === true) {
+	if (Configure::read('debug')) {
+		echo $this->Html->tag('p', __d('sifter', 'Sifter is not enabled, make sure to include the correct actions'), array(
+			'class' => 'danger',
+		));
+	}
+	return;
+}
 $model = $this->Sifter->getModel();;
 $fields = $this->Sifter->getFields();
 
@@ -9,7 +17,8 @@ echo $this->Form->create(null, array(
 	'inputDefaults' => array(
 		'div' => 'form-group',
 		'class' => 'form-control',
-	)
+	),
+	'novalidate' => 'novalidate'
 ));
 	echo $this->Form->hidden('Sifter.location', array('value' => $this->request->here));
 	echo $this->Form->hidden('Sifter.search_field');
