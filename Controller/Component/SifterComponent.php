@@ -6,7 +6,7 @@ class SifterComponent extends Component {
 	public function initialize(Controller $Controller) {
 		parent::initialize($Controller);
 		if (!self::_isSiftable($Controller)) {
-			return false;
+			return;
 		}
 
 		if (empty($Controller->request->data['Sifter'])) {
@@ -37,18 +37,18 @@ class SifterComponent extends Component {
 					$url[$model . '.' . $field] = $data;
 				}
 			}
-			return $Controller->redirect($url);
+			return $Controller->redirect(Hash::merge($url, array_diff_key($Controller->request->params, array('plugin' => null, 'controller' => null, 'action' => null, 'named' => null, 'pass' => null))));
 		}
 	}
 
 	protected function _sift(Controller $Controller) {
 		if (empty($Controller->Paginator) || !$Controller->Paginator instanceof PaginatorComponent) {
-			return false;
+			return;
 		}
 
 		$filterFields = self::sift($Controller);
 		if (empty($filterFields)) {
-			return false;
+			return;
 		}
 
 		$config = $Controller->{$Controller->modelClass}->sifterConfig('sifter');
@@ -172,7 +172,7 @@ class SifterComponent extends Component {
 		$Controller->helpers[] = 'Sifter.Sifter';
 		if (!self::_isSiftable($Controller)) {
 			$Controller->set('notSiftable', true);
-			return true;
+			return;
 		}
 		if (self::_isAjax($Controller)) {
 			$Controller->viewClass = 'Json';
@@ -189,7 +189,7 @@ class SifterComponent extends Component {
 			}
 		}
 
-		return true;
+		return;
 	}
 
 	protected function _isSiftable(Controller $Controller) {

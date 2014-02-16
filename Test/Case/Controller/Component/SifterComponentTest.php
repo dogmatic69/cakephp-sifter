@@ -82,12 +82,15 @@ class SifterComponentTest extends ControllerTestCase {
 				array(
 					'url' => array(
 						'TestDevice.name' => 'device-1',
+						'return' => true,
+						'bare' => true,
+						'requested' => true,
 					),
 					'status' => null,
 					'exit' => true,
 				)
 			),
-			'simple 1' => array(
+			'simple 2' => array(
 				array(
 					'pass' => array(
 						'data' => array(
@@ -110,8 +113,11 @@ class SifterComponentTest extends ControllerTestCase {
 					'url' => array(
 						'TestDevice.name' => 'device-1',
 						'TestDeviceType.name' => 'blaa',
+						'return' => true,
+						'bare' => true,
+						'requested' => true,
 					),
-					'status' => false,
+					'status' => null,
 					'exit' => true,
 				)
 			),
