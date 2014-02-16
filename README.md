@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dogmatic69/cakephp-sifter.png?branch=master)](https://travis-ci.org/dogmatic69/cakephp-sifter)
+
 ## Sifter
 
 Sifter is a CakePHP plugin that makes searching and filtering data simple. It can also be configured to change how it searches.
