@@ -182,7 +182,7 @@ class SifterComponentTest extends ControllerTestCase {
 		return array(
 			'device 1' => array(
 				array(
-					'url' => Router::url(array('controller' => 'test_devices', 'action' => 'index', 'ext' => 'json')),
+					'url' => '/test_devices/index.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -207,7 +207,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			'device 2' => array(
 				array(
-					'url' => Router::url(array('controller' => 'test_devices', 'action' => 'index', 'ext' => 'json')),
+					'url' => '/test_devices/index.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -232,7 +232,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			'no results' => array(
 				array(
-					'url' => Router::url(array('controller' => 'test_devices', 'action' => 'index', 'ext' => 'json')),
+					'url' => '/test_devices/index.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -255,7 +255,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			'multi' => array(
 				array(
-					'url' => Router::url(array('controller' => 'test_devices', 'action' => 'index', 'ext' => 'json')),
+					'url' => '/test_devices/index.json',
 					'pass' => array(
 						'data' => array(
 							'Sifter' => array(
@@ -281,7 +281,7 @@ class SifterComponentTest extends ControllerTestCase {
 			),
 			// 'not valid field' => array(
 			// 	array(
-			// 		'url' => Router::url(array('controller' => 'test_devices', 'action' => 'index', 'ext' => 'json')),
+			//		'url' => '/test_devices/index.json',
 			// 		'pass' => array(
 			// 			'data' => array(
 			// 				'Sifter' => array(
