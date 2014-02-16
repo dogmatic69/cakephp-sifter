@@ -13,6 +13,7 @@ class SifterComponent extends Component {
 			if (empty($Controller->request->params['named'])) {
 				return true;
 			}
+			$Controller->request->params['named'] = Hash::expand($Controller->request->params['named']);
 
 			return self::_sift($Controller);
 		}
@@ -30,7 +31,13 @@ class SifterComponent extends Component {
 			));
 		} elseif ($Controller->request->is('post')) {
 			unset($Controller->request->data['Sifter']);
-			return $Controller->redirect(Hash::filter($Controller->request->data));
+			$url = array();
+			foreach (Hash::filter($Controller->request->data) as $model => $fields) {
+				foreach ($fields as $field => $data) {
+					$url[$model . '.' . $field] = $data;
+				}
+			}
+			return $Controller->redirect($url);
 		}
 	}
 
