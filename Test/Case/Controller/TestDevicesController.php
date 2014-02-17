@@ -19,4 +19,8 @@ class TestDevicesController extends Controller {
 
 	public function add() {
 	}
+
+	public function render($action = null, $layout = null, $file = null) {
+		$this->renderedAction = $action;
+	}
 }
