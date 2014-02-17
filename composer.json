@@ -22,6 +22,6 @@
     "source": "https://github.com/dogmatic69/cakephp-sifter"
   },
   "extra": {
-    "installer-name": "CakePHP Sifter"
+    "installer-name": "Sifter"
   }
 }
