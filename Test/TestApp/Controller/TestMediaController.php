@@ -9,6 +9,8 @@ class TestMediaController extends Controller {
 
 	public $redirecTest = null;
 
+	public $autoRender = false;
+
 	public function redirect($url, $status = null, $exit = true) {
 		return $this->redirecTest = compact('url', 'status', 'exit');
 	}
