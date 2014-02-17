@@ -14,6 +14,6 @@ class TestMediaController extends Controller {
 	}
 
 	public function render($action = null, $layout = null, $file = null) {
-        $this->renderedAction = $action;
-    }
+		$this->renderedAction = $action;
+	}
 }

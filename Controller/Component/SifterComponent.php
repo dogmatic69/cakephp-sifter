@@ -188,8 +188,6 @@ class SifterComponent extends Component {
 				$Controller->set($config['viewVariable'], $var);
 			}
 		}
-
-		return;
 	}
 
 	protected function _isSiftable(Controller $Controller) {
