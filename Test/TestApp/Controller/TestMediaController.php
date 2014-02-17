@@ -9,13 +9,13 @@ class TestMediaController extends Controller {
 
 	public $redirecTest = null;
 
-	public $autoRender = false;
-
 	public function redirect($url, $status = null, $exit = true) {
 		return $this->redirecTest = compact('url', 'status', 'exit');
 	}
 
-	public function render($action = null, $layout = null, $file = null) {
-		$this->renderedAction = $action;
+	public function render($view = null, $layout = null) {
+		$response = new CakeResponse();
+		$response->body('');
+		return $response;
 	}
 }

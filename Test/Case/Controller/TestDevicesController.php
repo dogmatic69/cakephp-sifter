@@ -20,7 +20,9 @@ class TestDevicesController extends Controller {
 	public function add() {
 	}
 
-	public function render($action = null, $layout = null, $file = null) {
-		$this->renderedAction = $action;
+	public function render($view = null, $layout = null) {
+		$response = new CakeResponse();
+		$response->body('abc');
+		return $response;
 	}
 }

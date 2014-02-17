@@ -10,6 +10,8 @@ class_exists('TestMedia');
 class_exists('TestDevice');
 class_exists('TestDeviceType');
 
+class_exists('TestDevicesController');
+
 /**
  * SifterHelper Test Case
  *
@@ -31,6 +33,8 @@ class SifterHelperTest extends CakeTestCase {
 		parent::setUp();
 
 		$Request = $this->getMock('CakeRequest', array('_readInput'), array('/test_devices/index'));
+		$Request->params['controller'] = 'test_devices';
+		$Request->params['action'] = 'index';
 		$Response = $this->getMock('CakeResponse', array('send'));
 		$Dispatch = new ControllerTestDispatcher();
 		$Dispatch->loadRoutes = true;
